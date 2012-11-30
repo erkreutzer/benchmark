@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="/stylesheets/bootstrap.css">
+    <script type="text/javascript" src="/javascripts/jquery-1.8.0.min.js"></script>
+    <script type="text/javascript" src="/javascripts/angular-1.0.1.js"></script>
+    <script type="text/javascript" src="/javascripts/handlebars-1.0.rc.1.js"></script>
+    <script type="text/javascript" src="/javascripts/ember-1.0.0-pre.2.min.js"></script>
+
+    <style>
+        body {
+            padding: 10px;
+        }
+    </style>
+
+    <script type="text/javascript">
+
+        function clearAngularBenchmark() {
+            var scope = $('#angularOutput').scope();
+
+            scope.data.splice(0, scope.data.length);
+            scope.$digest();
+        }
+
+        function clearEmberBenchmark() {
+            EmberBenchMarkApp.data.clear();
+        }
+
+        function clearDom() {
+            $('#domTableBody').empty();
+        }
+
+        function clearBenchmark() {
+            clearAngularBenchmark();
+            clearEmberBenchmark();
+            clearDom();
+
+            $('#angularOutput').hide();
+            $('#domOutput').hide();
+            $('#emberOutput').hide();
+        }
+
+        function runAngularBenchmark(rows, columns, iterations) {
+            $('#angularOutput').show();
+            for(var i = 0; i < iterations; ++i) {
+                clearAngularBenchmark();
+                var scope = $('#angularOutput').scope();
+
+                for(var r = 0; r < rows; ++r) {
+                    var row = [];
+                    for(var c = 0; c < columns; ++c) {
+                        row.push('column ' + c);
+                    }
+
+                    scope.data.push(row);
+                }
+                scope.$digest();
+            }
+        }
+
+        function runEmberBenchmark(rows, columns, iterations) {
+            $('#emberOutput').show();
+            for(var i = 0; i < iterations; ++i) {
+                clearEmberBenchmark();
+                Ember.run.begin()
+                for(var r = 0; r < rows; ++r) {
+                    var row = [];
+                    for(var c = 0; c < columns; ++c) {
+                        row.push('column ' + c);
+                    }
+
+                    EmberBenchMarkApp.data.pushObject(row);
+                }
+                Ember.run.end();
+            }
+        }
+
+        function runDomBenchmark(rows, columns, iterations) {
+            $('#domOutput').show();
+            var dom = document.getElementById('domTableBody');
+            var fragment = document.createDocumentFragment();
+
+            for(var i = 0; i < iterations; ++i) {
+                clearDom();
+                for(var r = 0; r < rows; ++r) {
+                    var tr = document.createElement('tr');
+                    for(var c = 0; c < columns; ++c) {
+                        var td = document.createElement('td');
+                        td.innerHTML = 'column ' + c;
+                        tr.appendChild(td);
+                    }
+
+                    fragment.appendChild(tr);
+                }
+
+                dom.appendChild(fragment);
+            }
+        }
+
+        function runBenchmark() {
+            clearBenchmark();
+
+            var framework = $('#framework').val();
+            var rows = $('#rows').val();
+            var columns = $('#columns').val();
+            var iterations = $('#iterations').val();
+
+            var start = new Date().getTime();
+
+            if (framework === 'angular') {
+                runAngularBenchmark(rows, columns, iterations);
+            } else if (framework === 'ember') {
+                runEmberBenchmark(rows, columns, iterations);
+            } else if (framework === 'dom') {
+                runDomBenchmark(rows, columns, iterations);
+            }
+
+            var end = new Date().getTime();
+            var diff = end - start;
+            var avg = diff/iterations;
+            $('#resultBody').append('<tr><td>' + framework + '</td><td>' + rows + '</td><td>' + columns + '</td><td>' + iterations + '</td><td>' + diff + '</td><td>' + avg + '</td></tr>');
+        }
+
+        angular.module('AngularBenchmarkApp', [])
+                .controller('BenchmarkController', function($scope) {
+                    $scope.data = [];
+                });
+    </script>
+</head>
+<body>
+<div>
+    <div class="row">
+        <div class="span1">
+            <select id="framework">
+                <option value="dom">DOM</option>
+                <option value="angular">Angular</option>
+                <option value="ember">Ember</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="span1">
+            <label>Rows</label>
+            <input id="rows" type="text" value="100">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="span1">
+            <label>Columns</label>
+            <input id="columns" type="text" value="20">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="span1">
+            <label>Iterations</label>
+            <input id="iterations" type="text" value="1">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="span2">
+            <button class="btn btn-block" onclick="runBenchmark()">Benchmark</button>
+        </div>
+        <div class="span2">
+            <button class="btn btn-block" onclick="clearBenchmark()">Clear</button>
+        </div>
+    </div>
+
+    <div id="results">
+        <h3>Results</h3>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Framework</th>
+                <th>Rows</th>
+                <th>Columns</th>
+                <th>Iterations</th>
+                <th>Total Time (msecs)</th>
+                <th>Time/Iterarion (msecs)</th>
+            </tr>
+            </thead>
+            <tbody id="resultBody">
+
+            </tbody>
+        </table>
+    </div>
+
+    <div id="domOutput" style="display:none">
+        <h4>DOM Output</h4>
+        <table class="table">
+            <tbody id="domTableBody"></tbody>
+        </table>
+    </div>
+
+    <div id="angularOutput" data-ng-app="AngularBenchmarkApp" data-ng-controller="BenchmarkController" style="display:none">
+        <h4>Angular Output</h4>
+        <table class="table">
+            <tbody>
+            <tr data-ng-repeat="row in data">
+                {{row}}
+                <td data-ng-repeat="column in row">
+                    {{column}}
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+    <div id="emberOutput" style="display:none">
+        <div id="emberBenchmarkApp">
+            <h4>Ember Output</h4>
+            <script type="text/x-handlebars">
+                <table class="table">
+                    <tbody>
+                    {{#each EmberBenchMarkApp.data}}
+                    <tr>
+                        {{#each this}}
+                        <td>{{this}}</td>
+                        {{/each}}
+                    </tr>
+                    {{/each}}
+                    </tbody>
+                </table>
+            </script>
+        </div>
+        <script type="text/javascript">
+            var ENV = {EXTEND_PROTOTYPES: false};
+            EmberBenchMarkApp = Ember.Application.create({
+                rootElement: $('#emberBenchmarkApp')
+            });
+
+            EmberBenchMarkApp.data = Ember.A();
+        </script>
+    </div>
+</div>
+</body>
+</html>
