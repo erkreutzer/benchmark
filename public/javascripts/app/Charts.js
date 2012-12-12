@@ -6,9 +6,9 @@ angular.module('ChartModule', [])
                 chartId: '@',
                 chartModel: '=chartModel'
             },
-            controller: function($scope) {
+            controller: function($scope, $element) {
                 var chart;
-                AmCharts.ready(function() {
+                $element.ready(function() {
 
                     chart = new AmCharts.AmPieChart();
 
@@ -47,8 +47,8 @@ angular.module('ChartModule', [])
                 chartId: '@',
                 model: '=chartModel'
             },
-            controller: function($scope) {
-                AmCharts.ready(function() {
+            controller: function($scope, $element) {
+                $element.ready(function() {
                     var chart = new AmCharts.AmSerialChart();
                     var graph = new AmCharts.AmGraph();
 
