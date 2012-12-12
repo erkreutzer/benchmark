@@ -10,3 +10,7 @@ exports.index = function(req, res){
 exports.grid = function(req, res) {
     res.render('grid');
 }
+
+exports.chart = function(req, res) {
+    res.render('charts');
+}
