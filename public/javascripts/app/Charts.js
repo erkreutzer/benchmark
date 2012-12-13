@@ -92,6 +92,6 @@ angular.module('ChartModule', [])
 
             },
             replace: true,
-            template: '<div id="{{chartId}}" style="width:600px; height:400px; background-color:#FFFFFF"></div>'
+            template: '<div id="{{chartId}}" style="width:1000px; height:400px; background-color:#FFFFFF"></div>'
         }
     });
