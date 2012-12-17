@@ -14,3 +14,7 @@ exports.grid = function(req, res) {
 exports.chart = function(req, res) {
     res.render('charts');
 }
+
+exports.chartEmber = function(req, res) {
+    res.render('chartsEmber');
+};
