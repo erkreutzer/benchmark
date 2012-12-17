@@ -18,6 +18,11 @@
         <div id="EmberApp">
             <h1>Ember</h1>
             <script type="text/x-handlebars">
+                {{view Ember.TextField elementId="visitsId" valueBinding="EmberChartController.visits"}}
+                {{#view Ember.Button target="EmberChartController" action="updateVisits"}}
+                    Update
+                {{/view}}
+
                 {{view EmberChart
                         elementId="lineChartId"
                         modelBinding="EmberChartController.model"

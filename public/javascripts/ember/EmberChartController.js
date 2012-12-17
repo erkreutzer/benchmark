@@ -7,12 +7,27 @@ var EmberChartController = Ember.Object.create(Ember.Evented, {
         });
     },
 
+    aus: Ember.Object.create({ country: "Australia", visits: 384, hits: 789, views: 445 }),
+
     selected: {
         country: '',
         visits: ''
     },
 
-    model: [
+    visits: 0,
+
+    updateVisits: function() {
+        for(var i = 0; i < this.model.length; ++i) {
+            var country = this.model[i];
+            if(country.country === 'Australia') {
+                this.model.objectAt(i).set('visits', 999);
+            }
+        }
+
+        this.fire('modelUpdated');
+    },
+
+    model: Ember.A([
         Ember.Object.create({ country: "USA", visits: 4252 }),
         Ember.Object.create({ country: "China", visits: 1882, hits: 342, views: 7676 }),
         Ember.Object.create({ country: "Japan", visits: 1809, hits: 23, views: 344}),
@@ -27,11 +42,8 @@ var EmberChartController = Ember.Object.create(Ember.Evented, {
         Ember.Object.create({ country: "Canada", visits: 441, hits: 2342, views: 3453 }),
         Ember.Object.create({ country: "Brazil", visits: 395, hits: 64, views: 4567 }),
         Ember.Object.create({ country: "Italy", visits: 386, hits: 345, views: 222 }),
-        //aus,
+        Ember.Object.create({ country: "Australia", visits: 384, hits: 789, views: 445 }),
         Ember.Object.create({ country: "Taiwan", visits: 338, hits: 112, views: 4567 }),
         Ember.Object.create({ country: "Poland", visits: 328, hits: 345, views: 655 })
-    ],
-
-    onSliceClicked: function(event) {
-    }
+    ])
 });
