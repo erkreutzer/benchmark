@@ -1,4 +1,17 @@
-var EmberChartController = Ember.Object.create({
+var EmberChartController = Ember.Object.create(Ember.Evented, {
+    init: function() {
+        var self = this;
+        this.on('sliceClicked', function(evt, slice) {
+            console.log(slice);
+            self.set('selected', slice);
+        });
+    },
+
+    selected: {
+        country: '',
+        visits: ''
+    },
+
     model: [
         Ember.Object.create({ country: "USA", visits: 4252 }),
         Ember.Object.create({ country: "China", visits: 1882, hits: 342, views: 7676 }),
@@ -20,6 +33,5 @@ var EmberChartController = Ember.Object.create({
     ],
 
     onSliceClicked: function(event) {
-        console.log(event);
     }
 });

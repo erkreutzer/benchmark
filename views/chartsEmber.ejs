@@ -14,7 +14,7 @@
 
     </head>
 
-    <body data-ng-app="ChartApp" data-ng-controller="AmChartController">
+    <body>
         <div id="EmberApp">
             <h1>Ember</h1>
             <script type="text/x-handlebars">
@@ -22,9 +22,19 @@
                         elementId="lineChartId"
                         modelBinding="EmberChartController.model"
                         controllerBinding="EmberChartController"
-                        onSliceClicked="onSliceClicked"
                 }}
+
+                <div class="selected">
+                    <h4>Selected</h4>
+                    {{#if EmberChartController.selected}}
+                    <div><span>Country: </span><span>{{EmberChartController.selected.country}}</span></div>
+                    <div><span>Visits : </span><span>{{EmberChartController.selected.visits}}</span></div>
+                    {{/if}}
+                </div>
             </script>
+
+
+
         </div>
         <script type="text/javascript">
             var ENV = {EXTEND_PROTOTYPES: false};

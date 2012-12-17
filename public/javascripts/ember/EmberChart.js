@@ -13,8 +13,9 @@ var EmberChart = Ember.View.extend({
 
         var self = this;
         chart.addListener('clickSlice', function(event) {
-            var fnc = self.get('controller')[self.onSliceClicked];
-            fnc.call(self, event);
+            var controller = self.get('controller');
+
+            controller.fire('sliceClicked', event, event.dataItem.dataContext);
         });
 
 
