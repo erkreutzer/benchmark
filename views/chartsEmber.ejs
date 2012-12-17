@@ -18,16 +18,18 @@
         <div id="EmberApp">
             <h1>Ember</h1>
             <script type="text/x-handlebars">
-                {{view Ember.TextField elementId="visitsId" valueBinding="EmberChartController.visits"}}
-                {{#view Ember.Button target="EmberChartController" action="updateVisits"}}
-                    Update
-                {{/view}}
+                <div>
+                    {{view Ember.TextField elementId="visitsId" valueBinding="EmberChartController.visits"}}
+                    {{#view Ember.Button target="EmberChartController" action="updateVisits"}}
+                        Update
+                    {{/view}}
 
-                {{view EmberChart
-                        elementId="lineChartId"
-                        modelBinding="EmberChartController.model"
-                        controllerBinding="EmberChartController"
-                }}
+                    {{view EmberPieChart
+                            elementId="pieChartId"
+                            modelBinding="EmberChartController.model"
+                            controllerBinding="EmberChartController"
+                    }}
+                </div>
 
                 <div class="selected">
                     <h4>Selected</h4>
@@ -36,10 +38,22 @@
                     <div><span>Visits : </span><span>{{EmberChartController.selected.visits}}</span></div>
                     {{/if}}
                 </div>
+
+                <div>
+
+                    {{view Ember.TextField elementId="hitsId" valueBinding="EmberChartController.hits"}}
+                    {{#view Ember.Button target="EmberChartController" action="updateHits"}}
+                        Update
+                    {{/view}}
+
+                    {{view EmberLineChart
+                        elementId="lineChartId"
+                        modelBinding="EmberChartController.model"
+                        controllerBinding="EmberChartController"
+                    }}
+
+                </div>
             </script>
-
-
-
         </div>
         <script type="text/javascript">
             var ENV = {EXTEND_PROTOTYPES: false};

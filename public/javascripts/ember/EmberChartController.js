@@ -20,12 +20,26 @@ var EmberChartController = Ember.Object.create(Ember.Evented, {
         for(var i = 0; i < this.model.length; ++i) {
             var country = this.model[i];
             if(country.country === 'Australia') {
-                this.model.objectAt(i).set('visits', 999);
+                this.model.objectAt(i).set('visits', this.visits);
             }
         }
 
         this.fire('modelUpdated');
     },
+
+    hits: 0,
+
+    updateHits: function() {
+        for(var i = 0; i < this.model.length; ++i) {
+            var country = this.model[i];
+            if(country.country === 'Australia') {
+                this.model.objectAt(i).set('hits', this.hits);
+            }
+        }
+
+        this.fire('modelUpdated');
+    },
+
 
     model: Ember.A([
         Ember.Object.create({ country: "USA", visits: 4252 }),
