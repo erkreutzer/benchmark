@@ -5,25 +5,37 @@
 
         <script type="text/javascript" src="/javascripts/jquery-1.8.0.min.js"></script>
         <script type="text/javascript" src="/javascripts/angular-1.0.1.js"></script>
+        <script type="text/javascript" src="/javascripts/angular-resource-1.0.1.js"></script>
         <script type="text/javascript" src="/javascripts/app/Charts.js"></script>
         <script type="text/javascript" src="/javascripts/app/ChartApp.js"></script>
         <script type="text/javascript" src="/javascripts/app/AmChartController.js"></script>
+        <script type="text/javascript" src="/javascripts/app/AmChartDynamicController.js"></script>
 
         <script type="text/javascript" src="/javascripts/lib/amcharts/amcharts.js"></script>
 
     </head>
 
-    <body data-ng-app="ChartApp" data-ng-controller="AmChartController">
-        <input type="text" data-ng-model="visits"><button data-ng-click="updateVisits()">Update Visits</button>
-        <div data-pie-chart data-chart-id="pieChartTest" data-chart-model="chartModel"></div>
-        <div>
-            <div><span>Country: </span><span>{{selected.country}}</span></div>
-            <div><span>Visits: </span><span>{{selected.visits}}</span></div>
-        </div>
+    <body data-ng-app="ChartApp">
+        <div data-ng-controller="AmChartController">
+            <h1>Static Data</h1>
 
-        <div>
-            <input type="text" data-ng-model="hits"><button data-ng-click="updateHits()">Update Hits</button>
-            <div data-line-chart data-chart-id="lineChartTest" data-chart-model="chartModel"></div>
+            <input type="text" data-ng-model="visits"><button data-ng-click="updateVisits()">Update Visits</button>
+            <div data-pie-chart data-chart-id="pieChartTest" data-chart-model="chartModel"></div>
+            <div>
+                <div><span>Country: </span><span>{{selected.country}}</span></div>
+                <div><span>Visits: </span><span>{{selected.visits}}</span></div>
+            </div>
+
+            <div>
+                <input type="text" data-ng-model="hits"><button data-ng-click="updateHits()">Update Hits</button>
+                <div data-line-chart data-chart-id="lineChartTest" data-chart-model="chartModel"></div>
+            </div>
+        </div>
+        <div data-ng-controller="AmChartDynamicController">
+            <h1>Dynamic Data</h1>
+            <div data-pie-chart data-chart-id="pieDynamicChart" data-chart-model="chartModel"></div>
+
+            <div data-line-chart data-chart-id="lineDynamicChart" data-chart-model="chartModel"></div>
         </div>
     </body>
 </html>

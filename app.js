@@ -30,6 +30,7 @@ app.get('/', routes.index);
 app.get('/grid', routes.grid);
 app.get('/chart', routes.chart);
 app.get('/chartEmber', routes.chartEmber);
+app.get('/chart/data', routes.getChartData);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
