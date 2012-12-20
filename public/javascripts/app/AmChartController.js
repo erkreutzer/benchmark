@@ -1,5 +1,17 @@
+var Country = function() {
+    this.country = '';
+    this.visits = 0;
+    this.hits = 0;
+    this.views = 0;
+};
+
 var AmChartController = function($scope) {
-    var aus = { country: "Australia", visits: 384, hits: 789, views: 445 };
+    //var aus = { country: "Australia", visits: 384, hits: 789, views: 445 };
+    var aus = new Country();
+    aus.country = 'Australia';
+    aus.visits = 384;
+    aus.hits = 789;
+    aus.views = 445;
     $scope.chartModel = [{ country: "USA", visits: 4252 },
         { country: "China", visits: 1882, hits: 342, views: 7676 },
         { country: "Japan", visits: 1809, hits: 23, views: 344},
@@ -22,11 +34,7 @@ var AmChartController = function($scope) {
     $scope.selected = {};
     $scope.visits = 0;
     $scope.updateVisits = function() {
-        for(var index in $scope.chartModel) {
-            if ($scope.chartModel[index].country === 'Australia') {
-                $scope.chartModel[index].visits = parseInt($scope.visits);
-            }
-        }
+        aus.visits = $scope.visits;
     };
 
     $scope.hits = 0;
