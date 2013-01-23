@@ -1,0 +1,1 @@
+var GridApp = angular.module('GridChartApp', []);

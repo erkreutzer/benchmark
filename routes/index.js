@@ -9,11 +9,15 @@ exports.index = function(req, res){
 
 exports.grid = function(req, res) {
     res.render('grid');
-}
+};
+
+exports.gridChart = function(req, res) {
+    res.render('grid-chart');
+};
 
 exports.chart = function(req, res) {
     res.render('charts');
-}
+};
 
 exports.chartEmber = function(req, res) {
     res.render('chartsEmber');

@@ -28,6 +28,7 @@ app.configure('development', function(){
 
 app.get('/', routes.index);
 app.get('/grid', routes.grid);
+app.get('/gridChart', routes.gridChart);
 app.get('/chart', routes.chart);
 app.get('/chartEmber', routes.chartEmber);
 app.get('/chart/data', routes.getChartData);
