@@ -26,13 +26,17 @@ MockProxy.prototype.getData = function(params, callback) {
     callback(null, data);
 };
 
+MockProxy.prototype.resetGetData = function() {
+    this.getDataCalled = false;
+};
+
 describe('OlapModelService test suite', function() {
     var cache = null;
     var proxy = null;
     var service = null;
 
     beforeEach(function() {
-        cache = new ArrayCache('id');
+        cache = new ParamKeyArrayCache('id');
         proxy = new MockProxy();
 
         service = new OlapModelService(proxy, cache);
@@ -79,17 +83,17 @@ describe('OlapModelService test suite', function() {
         });
 
         waitsFor(function() {
+            proxy.resetGetData();
             return done;
         });
 
-        proxy.getDataCalled = false;
         done = false;
 
         runs(function() {
             service.getData(null, function(err, data) {
                 expect(err).toBe(null);
                 expect(data.length).toEqual(3);
-                //expect(proxy.getDataCalled).toEqual(false);
+                expect(proxy.getDataCalled).toEqual(false);
 
                 done = true;
             });

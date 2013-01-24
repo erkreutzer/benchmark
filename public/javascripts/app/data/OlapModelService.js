@@ -9,11 +9,11 @@ OlapModelService.prototype._validateParams = function(params) {
 };
 
 OlapModelService.prototype._inCache = function(params) {
-
+    return (!_.isEmpty(this._cache.getData(params)));
 };
 
 OlapModelService.prototype._getCached = function(params) {
-
+    return this._cache.getData(params);
 };
 
 OlapModelService.prototype._processRecords = function(err, records, callback) {

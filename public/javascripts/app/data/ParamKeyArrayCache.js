@@ -29,7 +29,6 @@ ParamKeyArrayCache.prototype.getData = function(params) {
     if (this._keyReference.hasOwnProperty(key)) {
         var positions = this._keyReference[key];
         _.each(positions, function(index) {
-            console.log(index);
             data.push(self._data[index]);
         });
     }
