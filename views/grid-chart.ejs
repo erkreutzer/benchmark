@@ -7,24 +7,36 @@
 
         <script type="text/javascript" src="/javascripts/jquery-1.8.0.min.js"></script>
         <script type="text/javascript" src="/javascripts/angular-1.0.1.js"></script>
+        <script type="text/javascript" src="/javascripts/underscore-min.js"></script>
         <script type="text/javascript" src="/javascripts/lib/SlickGrid/jquery.event.drag-2.0.min.js"></script>
         <script type="text/javascript" src="/javascripts/lib/SlickGrid/slick.core.js"></script>
         <script type="text/javascript" src="/javascripts/lib/SlickGrid/slick.grid.js"></script>
+        <script type="text/javascript" src="/javascripts/lib/amcharts/amcharts.js"></script>
+        <script type="text/javascript" src="/javascripts/app/Charts.js"></script>
         <script type="text/javascript" src="/javascripts/app/SlickGrid.js"></script>
         <script type="text/javascript" src="/javascripts/app/GridChartApp.js"></script>
+        <script type="text/javascript" src="/javascripts/app/data/BaseModelService.js"></script>
+        <script type="text/javascript" src="/javascripts/app/data/BaseCache.js"></script>
+        <script type="text/javascript" src="/javascripts/app/data/BaseProxy.js"></script>
+        <script type="text/javascript" src="/javascripts/app/data/ArrayCache.js"></script>
+        <script type="text/javascript" src="/javascripts/app/data/ParamKeyArrayCache.js"></script>
+        <script type="text/javascript" src="/javascripts/app/TestProxy.js"></script>
+        <script type="text/javascript" src="/javascripts/app/TestModelService.js"></script>
+        <script type="text/javascript" src="/javascripts/app/TestGridModelService.js"></script>
+        <script type="text/javascript" src="/javascripts/app/ScrollingGridModelService.js"></script>
+        <script type="text/javascript" src="/javascripts/app/ScrollingProxy.js"></script>
 
     </head>
     <body>
         <div data-ng-app="GridChartApp">
-            <!--
-            <div data-ng-controller="CampaignController">
-                <div>
-                    <h5>Campaign Events</h5>
-                    <div>onViewPortChanged: {{data}}</div>
-                </div>
-                <div data-slick-grid data-grid-id="campaign" data-model="campaignModel"></div>
+            <div data-ng-controller="GridChartController">
+                <select data-ng-model="selected" ng-options="d.country for d in data" data-ng-change="selectionChanged()"></select><input type="text" data-ng-model="selected.visits"><button data-ng-click="updateVisits()">Update Visits</button>
+
+                <div data-pie-chart data-chart-id="pieChartTest" data-chart-model="data"></div>
+                <div data-slick-grid data-grid-id="campaign" data-model="gridService"></div>
+
+                <div data-slick-grid data-grid-id="scrolling" data-model="scrollingService"></div>
             </div>
-            -->
         </div>
     </body>
 </html>

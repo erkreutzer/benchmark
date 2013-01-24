@@ -8,6 +8,11 @@ var ParamKeyArrayCache = function(idProperty) {
 ParamKeyArrayCache.prototype = new ArrayCache();
 
 ParamKeyArrayCache.prototype.addRow = function(row, params) {
+
+    if (!row.hasOwnProperty(this._idProperty)) {
+        throw new Error('Invalid id for row: ' + this._idProperty);
+    }
+
     if (!_.isUndefined(this.getDataById(row[this._idProperty]))) {
         return;
     }

@@ -21,6 +21,10 @@ angular.module('SlickGridModule', [])
                     scope.$emit('gridViewportChanged', evt);
                     evt.stopPropagation();
                 });
+
+                scope.$watch('model', function() {
+                    grid.invalidate();
+                }, true);
             }
         }
     });

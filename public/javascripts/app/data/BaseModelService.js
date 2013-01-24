@@ -18,6 +18,10 @@ BaseModelService.prototype.getData = function(params, callback) {
     }
 };
 
+BaseModelService.prototype.updateData = function(data, params, callback) {
+    throw new Error('BaseModelService unimplemented method updateData');
+};
+
 BaseModelService.prototype.containsParams = function(params) {
     var param = _.find(this._paramsCalled, function(p) {
         var paramFound = true;

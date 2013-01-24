@@ -2,6 +2,10 @@ var BaseCache = function(idProperty) {
     this._idProperty = idProperty;
 };
 
+BaseCache.prototype.updateRow = function(row, params) {
+
+};
+
 BaseCache.prototype.addRow = function(row, params) {
     throw new Error('BaseCache unimplemented method addRow');
 };
