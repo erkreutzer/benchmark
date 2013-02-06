@@ -4,7 +4,7 @@ var BaseModelService = function(proxy, cache) {
     this._paramsCalled = [];
 };
 
-BaseModelService.prototype.getData = function(params, callback) {
+BaseModelService.prototype.read = function(params, callback) {
     var self = this;
 
     self._validateParams(params);
@@ -12,13 +12,21 @@ BaseModelService.prototype.getData = function(params, callback) {
     if (self._inCache(params)) {
         callback(null, self._getCached(params));
     } else {
-        this._proxy.getData(params, function(err, data) {
-            self._processRecords(err, data, callback);
+        this._proxy.read(params, function(err, data) {
+            self._processRecords(err, data, function(err, processedData) {
+                if (_.isArray(processedData)) {
+                    self._cache.addRows(processedData, params);
+                } else {
+                    self._cache.addRow(processedData, params);
+                }
+
+                callback(err, processedData);
+            });
         });
     }
 };
 
-BaseModelService.prototype.updateData = function(data, params, callback) {
+BaseModelService.prototype.update = function(data, params, callback) {
     throw new Error('BaseModelService unimplemented method updateData');
 };
 

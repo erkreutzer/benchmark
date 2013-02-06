@@ -19,9 +19,10 @@ files = [
   '../public/javascripts/app/data/BaseProxy.js',
   '../public/javascripts/app/data/BaseModelService.js',
     '../public/javascripts/app/data/*.js',
+    '../public/javascripts/app/drip/*.js',
     '../public/javascripts/app/*.js',
 
-  '**/*.spec.js'
+  '**/DripModelService.spec.js'
 ];
 
 // list of files to exclude

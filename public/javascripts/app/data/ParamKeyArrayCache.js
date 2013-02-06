@@ -9,7 +9,7 @@ ParamKeyArrayCache.prototype = new ArrayCache();
 
 ParamKeyArrayCache.prototype.addRow = function(row, params) {
 
-    if (!row.hasOwnProperty(this._idProperty)) {
+    if (this._idProperty && !row.hasOwnProperty(this._idProperty)) {
         throw new Error('Invalid id for row: ' + this._idProperty);
     }
 
